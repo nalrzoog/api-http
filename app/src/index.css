@@ -1,0 +1,157 @@
+:root {
+  --fk-green: #1f3733;
+  --fk-green-hover: #2c4a45;
+  --fk-purple: #b2a6c0;
+  --fk-purple-dark: #8e7fa3;
+  --fk-bg: #f5f4f1;
+  --fk-surface: #ffffff;
+  --fk-border: #e4e1dc;
+  --fk-border-input: #dcd8d2;
+  --fk-border-faint: #edeae5;
+  --fk-text: #1f3733;
+  --fk-text-muted: #6c7a77;
+  --fk-text-label: #4a5a57;
+  --fk-text-faint: #9ba5a2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--fk-bg);
+  font-family: 'Tajawal', system-ui, sans-serif;
+  color: var(--fk-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--fk-text);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--fk-purple-dark);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+input:focus-visible,
+button:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--fk-purple);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(178, 166, 192, 0.35);
+}
+::placeholder {
+  color: var(--fk-text-faint);
+}
+
+@keyframes fkFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fk-input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid var(--fk-border-input);
+  border-radius: 4px;
+  background: #fff;
+  font-size: 15px;
+  color: var(--fk-text);
+}
+
+.fk-label {
+  display: block;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  color: var(--fk-text-label);
+  margin-bottom: 8px;
+}
+
+.fk-btn-primary {
+  padding: 13px;
+  background: var(--fk-green);
+  color: #fff;
+  border: 1px solid var(--fk-green);
+  border-radius: 4px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.fk-btn-primary:hover:not(:disabled) {
+  background: var(--fk-green-hover);
+}
+.fk-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fk-btn-secondary {
+  padding: 13px 22px;
+  background: none;
+  border: 1px solid var(--fk-border-input);
+  border-radius: 4px;
+  font-size: 15px;
+  color: var(--fk-text-label);
+  cursor: pointer;
+}
+.fk-btn-secondary:hover:not(:disabled) {
+  border-color: var(--fk-green);
+}
+
+.fk-btn-link {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 13.5px;
+}
+
+.fk-card {
+  background: var(--fk-surface);
+  border: 1px solid var(--fk-border);
+  border-radius: 4px;
+}
+
+.fk-spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  animation: fk-spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+.fk-spinner-dark {
+  border: 2px solid rgba(31, 55, 51, 0.2);
+  border-top-color: var(--fk-green);
+}
+
+@keyframes fk-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
