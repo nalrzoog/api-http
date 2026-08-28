@@ -38,10 +38,18 @@ src/
 
 - **profiles** — one row per registered user, auto-created by a database
   trigger (`handle_new_user`) on `auth.users` insert.
-- **clients** — client/event records; `remaining_amount` and `payment_status`
-  are Postgres *generated* columns, always computed, never sent by the client.
-- **RLS** — every `clients`/`profiles` policy checks `user_id = auth.uid()` /
-  `id = auth.uid()`. A user can never see, edit, or delete another user's data.
+- **clients** — one shared table of client/event records, visible and
+  editable by every authorized (registered) admin. `remaining_amount` and
+  `payment_status` are Postgres *generated* columns, always computed, never
+  sent by the client. `user_id` records who created a row for audit purposes
+  only — it is not used for access control.
+- **RLS** — `clients` policies allow any authenticated user with a `profiles`
+  row (i.e. any registered admin) to select/insert/update/delete; `profiles`
+  itself stays private per-user (`id = auth.uid()`), since account identity
+  is separate from the shared business data.
+- **Realtime** — `clients` is in the `supabase_realtime` publication and the
+  frontend subscribes to `postgres_changes` on it, so one admin's add/edit/
+  delete shows up on every other open dashboard without a refresh or re-login.
 - **10-user cap** — enforced inside `handle_new_user()` with an advisory lock
   (`pg_advisory_xact_lock`) so two simultaneous signups can't both slip in as
   #10 and #11. The frontend also pre-checks via the `get_registered_user_count`
