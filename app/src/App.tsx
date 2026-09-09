@@ -8,6 +8,8 @@ import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { ClientsPage } from './pages/ClientsPage';
+import { WorkshopsPage } from './pages/WorkshopsPage';
+import { WorkshopDetailPage } from './pages/WorkshopDetailPage';
 
 export default function App() {
   return (
@@ -49,6 +51,22 @@ export default function App() {
           element={
             <ProtectedRoute>
               <ClientsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/workshops"
+          element={
+            <ProtectedRoute>
+              <WorkshopsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/workshops/:id"
+          element={
+            <ProtectedRoute>
+              <WorkshopDetailPage />
             </ProtectedRoute>
           }
         />

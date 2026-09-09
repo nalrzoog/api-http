@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { logoutUser } from '../services/authService';
+import { useLanguage } from '../i18n/LanguageContext';
 import logo from '../assets/flowers-knot-logo.png';
 
 function tabStyle(active: boolean): React.CSSProperties {
@@ -21,6 +22,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { profile, user } = useAuth();
+  const { locale, setLocale, t } = useLanguage();
   const [loggingOut, setLoggingOut] = useState(false);
 
   const displayName = profile?.full_name || user?.email || '';
@@ -53,12 +55,32 @@ export function AppShell({ children }: { children: ReactNode }) {
           <img src={logo} alt="Flowers Knot" style={{ width: 150, height: 'auto', display: 'block' }} />
           <nav style={{ display: 'flex', gap: 6, marginInlineStart: 'auto' }}>
             <Link to="/dashboard" style={tabStyle(pathname === '/dashboard')}>
-              لوحة التحكم
+              {t('nav.dashboard')}
             </Link>
             <Link to="/clients" style={tabStyle(pathname === '/clients')}>
-              العملاء والمناسبات
+              {t('nav.clients')}
+            </Link>
+            <Link to="/workshops" style={tabStyle(pathname.startsWith('/workshops'))}>
+              {t('nav.workshops')}
             </Link>
           </nav>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, paddingInlineStart: 18, borderInlineStart: '1px solid var(--fk-border)', fontSize: 13 }}>
+            <button
+              onClick={() => setLocale('ar')}
+              className="fk-btn-link"
+              style={{ color: locale === 'ar' ? 'var(--fk-text)' : 'var(--fk-text-faint)', fontWeight: locale === 'ar' ? 500 : 400 }}
+            >
+              AR
+            </button>
+            <span style={{ color: 'var(--fk-border-input)' }}>|</span>
+            <button
+              onClick={() => setLocale('en')}
+              className="fk-btn-link"
+              style={{ color: locale === 'en' ? 'var(--fk-text)' : 'var(--fk-text-faint)', fontWeight: locale === 'en' ? 500 : 400 }}
+            >
+              EN
+            </button>
+          </div>
           <div
             style={{
               display: 'flex',
