@@ -10,6 +10,8 @@ import { DashboardPage } from './pages/DashboardPage';
 import { ClientsPage } from './pages/ClientsPage';
 import { WorkshopsPage } from './pages/WorkshopsPage';
 import { WorkshopDetailPage } from './pages/WorkshopDetailPage';
+import { InvoicesPage } from './pages/InvoicesPage';
+import { InvoiceEditorPage } from './pages/InvoiceEditorPage';
 
 export default function App() {
   return (
@@ -67,6 +69,30 @@ export default function App() {
           element={
             <ProtectedRoute>
               <WorkshopDetailPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/invoices"
+          element={
+            <ProtectedRoute>
+              <InvoicesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/invoices/new"
+          element={
+            <ProtectedRoute>
+              <InvoiceEditorPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/invoices/:id"
+          element={
+            <ProtectedRoute>
+              <InvoiceEditorPage />
             </ProtectedRoute>
           }
         />

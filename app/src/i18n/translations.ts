@@ -1,7 +1,12 @@
 export type Locale = 'ar' | 'en';
 
 export const translations = {
-  nav: { dashboard: ['لوحة التحكم', 'Dashboard'], clients: ['العملاء والمناسبات', 'Clients & Events'], workshops: ['ورش العمل', 'Workshops'] },
+  nav: {
+    dashboard: ['لوحة التحكم', 'Dashboard'],
+    clients: ['العملاء والمناسبات', 'Clients & Events'],
+    workshops: ['ورش العمل', 'Workshops'],
+    invoices: ['الفواتير', 'Invoices'],
+  },
   common: {
     add: ['إضافة', 'Add'],
     edit: ['تعديل', 'Edit'],

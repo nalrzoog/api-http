@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AppShell } from '../components/AppShell';
 import { ClientModal } from '../components/ClientModal';
 import { ConfirmDeleteModal } from '../components/ConfirmDeleteModal';
@@ -119,6 +120,9 @@ export function ClientsPage() {
                     <button className="fk-btn-secondary" style={{ padding: '7px 14px', fontSize: 13 }} onClick={() => setModalTarget(r)}>
                       تعديل
                     </button>
+                    <Link to={`/invoices/new?customerId=${r.id}`} className="fk-btn-secondary" style={{ padding: '7px 14px', fontSize: 13 }}>
+                      إصدار فاتورة
+                    </Link>
                     <button
                       className="fk-btn-secondary"
                       style={{ padding: '7px 14px', fontSize: 13, color: 'var(--fk-purple-dark)' }}
