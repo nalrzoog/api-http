@@ -6,6 +6,7 @@ import { PaidRemainingDonut } from '../components/PaidRemainingDonut';
 import { MonthlyEventsChart } from '../components/MonthlyEventsChart';
 import { UpcomingEventsList } from '../components/UpcomingEventsList';
 import { WorkshopsSummaryCard } from '../components/WorkshopsSummaryCard';
+import { InvoicesSummaryCard } from '../components/InvoicesSummaryCard';
 import { ClientModal } from '../components/ClientModal';
 import { useClients } from '../hooks/useClients';
 import { computeDashboard } from '../lib/dashboard';
@@ -55,6 +56,7 @@ export function DashboardPage() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: 14, marginTop: 14 }}>
         <WorkshopsSummaryCard />
+        <InvoicesSummaryCard />
       </div>
 
       {adding && (

@@ -63,6 +63,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Link to="/workshops" style={tabStyle(pathname.startsWith('/workshops'))}>
               {t('nav.workshops')}
             </Link>
+            <Link to="/invoices" style={tabStyle(pathname.startsWith('/invoices'))}>
+              {t('nav.invoices')}
+            </Link>
           </nav>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, paddingInlineStart: 18, borderInlineStart: '1px solid var(--fk-border)', fontSize: 13 }}>
             <button
