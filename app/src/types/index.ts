@@ -13,10 +13,14 @@ export const PAYMENT_STATUSES = ['مدفوع', 'مدفوع جزئياً', 'غي�
 
 export type PaymentStatus = (typeof PAYMENT_STATUSES)[number];
 
+export type Role = 'admin' | 'employee';
+
 export interface Profile {
   id: string;
   full_name: string | null;
   email: string | null;
+  role: Role;
+  trello_member_id: string | null;
   created_at: string;
   updated_at: string;
 }
