@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { logoutUser } from '../services/authService';
 import { useLanguage } from '../i18n/LanguageContext';
+import { useNotifications } from '../hooks/useNotifications';
 import logo from '../assets/flowers-knot-logo.png';
 
 function tabStyle(active: boolean): React.CSSProperties {
@@ -23,7 +24,9 @@ export function AppShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const { profile, user } = useAuth();
   const { locale, setLocale, t } = useLanguage();
+  const { unreadCount } = useNotifications();
   const [loggingOut, setLoggingOut] = useState(false);
+  const isAdmin = profile?.role === 'admin';
 
   const displayName = profile?.full_name || user?.email || '';
   const initial = displayName.trim().charAt(0).toLocaleUpperCase() || '؟';
@@ -53,19 +56,43 @@ export function AppShell({ children }: { children: ReactNode }) {
           }}
         >
           <img src={logo} alt="Flowers Knot" style={{ width: 150, height: 'auto', display: 'block' }} />
-          <nav style={{ display: 'flex', gap: 6, marginInlineStart: 'auto' }}>
-            <Link to="/dashboard" style={tabStyle(pathname === '/dashboard')}>
-              {t('nav.dashboard')}
+          <nav style={{ display: 'flex', gap: 6, marginInlineStart: 'auto', flexWrap: 'wrap' }}>
+            {isAdmin && (
+              <Link to="/dashboard" style={tabStyle(pathname === '/dashboard')}>
+                {t('nav.dashboard')}
+              </Link>
+            )}
+            {!isAdmin && (
+              <Link to="/workspace" style={tabStyle(pathname === '/workspace')}>
+                مساحتي
+              </Link>
+            )}
+            <Link to="/dashboard/operations" style={tabStyle(pathname === '/dashboard/operations')}>
+              إدارة الفريق
             </Link>
-            <Link to="/clients" style={tabStyle(pathname === '/clients')}>
-              {t('nav.clients')}
-            </Link>
+            {isAdmin && (
+              <Link to="/clients" style={tabStyle(pathname === '/clients')}>
+                {t('nav.clients')}
+              </Link>
+            )}
             <Link to="/workshops" style={tabStyle(pathname.startsWith('/workshops'))}>
               {t('nav.workshops')}
             </Link>
-            <Link to="/invoices" style={tabStyle(pathname.startsWith('/invoices'))}>
-              {t('nav.invoices')}
-            </Link>
+            {isAdmin && (
+              <Link to="/invoices" style={tabStyle(pathname.startsWith('/invoices'))}>
+                {t('nav.invoices')}
+              </Link>
+            )}
+            {isAdmin && (
+              <Link to="/dashboard/team" style={tabStyle(pathname === '/dashboard/team')}>
+                الفريق
+              </Link>
+            )}
+            {isAdmin && (
+              <Link to="/dashboard/trello-settings" style={tabStyle(pathname === '/dashboard/trello-settings')}>
+                إعدادات Trello
+              </Link>
+            )}
           </nav>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, paddingInlineStart: 18, borderInlineStart: '1px solid var(--fk-border)', fontSize: 13 }}>
             <button
@@ -93,21 +120,44 @@ export function AppShell({ children }: { children: ReactNode }) {
               borderInlineStart: '1px solid var(--fk-border)',
             }}
           >
-            <div
-              style={{
-                width: 34,
-                height: 34,
-                borderRadius: '50%',
-                background: 'rgba(178,166,192,.25)',
-                border: '1px solid var(--fk-purple)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 13,
-                color: 'var(--fk-text)',
-              }}
-            >
-              {initial}
+            <div style={{ position: 'relative' }}>
+              <div
+                style={{
+                  width: 34,
+                  height: 34,
+                  borderRadius: '50%',
+                  background: 'rgba(178,166,192,.25)',
+                  border: '1px solid var(--fk-purple)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 13,
+                  color: 'var(--fk-text)',
+                }}
+              >
+                {initial}
+              </div>
+              {unreadCount > 0 && (
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: -3,
+                    insetInlineEnd: -3,
+                    minWidth: 16,
+                    height: 16,
+                    borderRadius: 8,
+                    background: 'var(--fk-purple-dark)',
+                    color: '#fff',
+                    fontSize: 9.5,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '0 3px',
+                  }}
+                >
+                  {unreadCount}
+                </span>
+              )}
             </div>
             <div style={{ fontSize: 13, lineHeight: 1.5 }}>
               <div>{displayName}</div>
