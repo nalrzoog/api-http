@@ -15,19 +15,6 @@ export function formatDate(iso: string | null): string {
   }).format(date);
 }
 
-export function formatDateTime(iso: string | null): string {
-  if (!iso) return '—';
-  const date = new Date(iso);
-  if (Number.isNaN(date.getTime())) return '—';
-  return new Intl.DateTimeFormat('ar-SA-u-ca-gregory', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(date);
-}
-
 export function daysUntil(iso: string | null): number | null {
   if (!iso) return null;
   const today = new Date();
