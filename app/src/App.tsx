@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './hooks/useAuth';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { AdminRoute } from './components/AdminRoute';
 import { PublicOnlyRoute } from './components/PublicOnlyRoute';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
@@ -13,10 +12,6 @@ import { WorkshopsPage } from './pages/WorkshopsPage';
 import { WorkshopDetailPage } from './pages/WorkshopDetailPage';
 import { InvoicesPage } from './pages/InvoicesPage';
 import { InvoiceEditorPage } from './pages/InvoiceEditorPage';
-import { OperationsBoardPage } from './pages/OperationsBoardPage';
-import { TrelloSettingsPage } from './pages/TrelloSettingsPage';
-import { TeamPage } from './pages/TeamPage';
-import { WorkspacePage } from './pages/WorkspacePage';
 
 export default function App() {
   return (
@@ -48,17 +43,17 @@ export default function App() {
         <Route
           path="/dashboard"
           element={
-            <AdminRoute>
+            <ProtectedRoute>
               <DashboardPage />
-            </AdminRoute>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/clients"
           element={
-            <AdminRoute>
+            <ProtectedRoute>
               <ClientsPage />
-            </AdminRoute>
+            </ProtectedRoute>
           }
         />
         <Route
@@ -80,57 +75,24 @@ export default function App() {
         <Route
           path="/invoices"
           element={
-            <AdminRoute>
+            <ProtectedRoute>
               <InvoicesPage />
-            </AdminRoute>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/invoices/new"
           element={
-            <AdminRoute>
+            <ProtectedRoute>
               <InvoiceEditorPage />
-            </AdminRoute>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/invoices/:id"
           element={
-            <AdminRoute>
+            <ProtectedRoute>
               <InvoiceEditorPage />
-            </AdminRoute>
-          }
-        />
-
-        <Route
-          path="/dashboard/operations"
-          element={
-            <ProtectedRoute>
-              <OperationsBoardPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/dashboard/trello-settings"
-          element={
-            <AdminRoute>
-              <TrelloSettingsPage />
-            </AdminRoute>
-          }
-        />
-        <Route
-          path="/dashboard/team"
-          element={
-            <AdminRoute>
-              <TeamPage />
-            </AdminRoute>
-          }
-        />
-        <Route
-          path="/workspace"
-          element={
-            <ProtectedRoute>
-              <WorkspacePage />
             </ProtectedRoute>
           }
         />
